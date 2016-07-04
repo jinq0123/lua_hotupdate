@@ -1,15 +1,27 @@
+Lua 5.2/5.3
+
+(Lua 5.1 请使用 https://github.com/asqbtcupid/lua_hotupdate )
+
 接口包含
-- Init(UpdateListFile, RootPath, [, FailNotify, ENV])
+- HU.Init(ModuleNameOfUpdateList[, ENV])
 - Update()
 
-Init负责初始化，RootPath是你的lua文件目录，该目录及子目录下的所有的lua文件都被纪录。UpdateListFile是一个lua路径，要求这个lua文件返回一个table，这个table包含想要热更新的文件的文件名。
+Init负责初始化。
+ModuleNameOfUpdateList是一个lua模块名路径，
+要求这个lua模块返回一个table，
+这个table包含想要热更新的文件的文件名。例如：
+```
+-- 重新加载本模块以获取热更新模块名列表。
+-- 可以任意动态添加或删除热更新模块。
+local hotfix_module_names = {
+	"svc_login",
+}
 
-Update每运行一次就对UpdateListFile里面的文件进行热更新，只更新函数，不更新数据。
+return hotfix_module_names
+```
 
-~限Windows平台使用, 详细配置[lua热更新](http://asqbtcupid.github.io/hotupdte-implement/)
+Update每运行一次就对所列模块进行热更新，只更新函数，不更新数据。
 
-
-
-
+详细配置[lua热更新](http://asqbtcupid.github.io/hotupdte-implement/)
 
 ![例子动图](https://raw.githubusercontent.com/asqbtcupid/asqbtcupid.github.com/master/images/hotupdate-example.gif)
